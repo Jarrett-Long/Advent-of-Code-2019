@@ -3,10 +3,13 @@
 void Main()
 {
 	var path = @"C:\Projects\AOC\Advent-of-Code-2019\Day_01\input.txt";
-	var masses = new List<string>();
+	var masses = new List<int>();
 	var line = string.Empty;
 	var file = new System.IO.StreamReader(path);
-	while ((line = file.ReadLine()) != null) masses.Add(line);
+	while ((line = file.ReadLine()) != null)
+	{
+		if (int.TryParse(line, out var mass)) masses.Add(mass);
+	}
 	
 	// Part One
 	PartOne.Solve(masses).Dump();
@@ -26,15 +29,13 @@ public static class FuelCounterUpper
 
 public static class PartOne
 {
-	public static int Solve(List<string> masses)
+	public static int Solve(List<int> masses)
 	{
 		var totalFuelNeeded = 0;
 		
 		foreach (var mass in masses)
-		{
-			if (!int.TryParse(mass, out var massInt)) continue;
-			
-			var fuelNeeded = FuelCounterUpper.Calculate(massInt);
+		{		
+			var fuelNeeded = FuelCounterUpper.Calculate(mass);
 			
 			totalFuelNeeded += fuelNeeded;
 		}
@@ -45,15 +46,13 @@ public static class PartOne
 
 public static class PartTwo 
 {
-	public static int Solve(List<string> masses)
+	public static int Solve(List<int> masses)
 	{
 		var totalFuelNeeded = 0;
 
 		foreach (var mass in masses)
 		{
-			if (!int.TryParse(mass, out var massInt)) continue;
-
-			var fuelNeeded = GetTotalFuel(massInt);
+			var fuelNeeded = GetTotalFuel(mass);
 
 			totalFuelNeeded += fuelNeeded;
 		}
