@@ -26,8 +26,8 @@ public static class Solutions
 	
 	public static void PartTwo(Line wire1, Line wire2)
 	{
-		var interections = wire1.Points.Intersect(wire2.Points);
-		var min = interections.Min(i => wire1.Points.IndexOf(i) + wire2.Points.IndexOf(i) + 2);
+		var intersections = wire1.Points.Intersect(wire2.Points);
+		var min = intersections.Min(i => wire1.Points.IndexOf(i) + wire2.Points.IndexOf(i) + 2);
 		$"Fewest combined steps: {min}".Dump();
 	}
 }
