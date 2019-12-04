@@ -2,34 +2,30 @@
 
 void Main()
 {
-	var ex1Wire1 = "R8,U5,L5,D3".Split(','); 
-	var ex1Wire2 = "U7,R6,D4,L4".Split(',');
+	var ex1Wire1 = new Line("R8,U5,L5,D3".Split(',')); 
+	var ex1Wire2 = new Line("U7,R6,D4,L4".Split(','));
 	Solutions.PartOne(ex1Wire1, ex1Wire2);
 	Solutions.PartTwo(ex1Wire1, ex1Wire2);
 
 	var file = System.IO.File.ReadAllLines(@"C:\Projects\AOC\Advent-of-Code-2019\Day_03\input.txt");
-	var wire1Directions = file[0].Split(',');
-	var wire2Directions = file[1].Split(',');
+	var wire1Directions = new Line(file[0].Split(','));
+	var wire2Directions = new Line(file[1].Split(','));
 	Solutions.PartOne(wire1Directions, wire2Directions);
 	Solutions.PartTwo(wire1Directions, wire2Directions);
 }
 
 public static class Solutions
 {
-	public static void PartOne(string[] wire1Directions, string[] wire2Directions)
+	public static void PartOne(Line wire1, Line wire2)
 	{
 		var origin = new Point(0, 0);
-		var wire1 = new Line(wire1Directions);
-		var wire2 = new Line(wire2Directions);
 		var interections = wire1.Points.Intersect(wire2.Points);
 		var closestIntersection = interections.Min(i => Calculator.ManhattanDistance(origin, i));
 		$"Closest intersection: {closestIntersection}".Dump();
 	}
 	
-	public static void PartTwo(string[] wire1Directions, string[] wire2Directions)
+	public static void PartTwo(Line wire1, Line wire2)
 	{
-		var wire1 = new Line(wire1Directions);
-		var wire2 = new Line(wire2Directions);
 		var interections = wire1.Points.Intersect(wire2.Points);
 		var min = interections.Min(i => wire1.Points.IndexOf(i) + wire2.Points.IndexOf(i) + 2);
 		$"Fewest combined steps: {min}".Dump();
